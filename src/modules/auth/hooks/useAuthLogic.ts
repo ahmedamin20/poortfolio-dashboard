@@ -32,17 +32,16 @@ export const useAuthLogic = () => {
         dispatch(setUserInfoCodeReducer(result.data.code))
     }
 
-    const dispatchLogin = (payload) => {
+    const dispatchLogin = async (payload) => {
+        console.log("logging")
         dispatch(setUserInfoLoadingReducer(true))
 
-        return axiosInstance
-            .get('/sanctum/csrf-cookie').then(() => {
-                axiosInstance.post("/auth/login/dashboard", payload)
-                    .then((result) => userInfoHandler(result))
+        return await axiosInstance.post("/api/auth/login", payload)
+                    .then((result) => console.log(result, "hereee"))
                     .finally(() => {
                         dispatch(setUserInfoLoadingReducer(false))
                     })
-            });
+            
     }
 
     const fetchProfile = () => {

@@ -1,6 +1,6 @@
-import {getPerPage} from "./paginationHelper";
-import {PaginationMeta} from "../../interfaces/paginationMeta.ts";
-import PaginationMetaObject from "../../interfaces/paginationObject.ts";
+// import {getPerPage} from "./paginationHelper";
+// import {PaginationMeta} from "../../interfaces/paginationMeta.ts";
+// import PaginationMetaObject from "../../interfaces/paginationObject.ts";
 import DefaultCrudInitialState from "../../interfaces/redux/defaultCrudInitialState.ts";
 import DefaultNonPaginatedState from "../../interfaces/redux/defaultNonPaginatedState.ts";
 
@@ -12,35 +12,35 @@ export const resetStoreMethod = (initialState) => {
     }
 }
 
-export const paginationInitialValues = (): {meta: PaginationMeta} => {
-    return {
-        meta: {
-            currentPage: 1,
-            from: 1,
-            lastPage: 1,
-            perPage: 5,
-            total: 0
-        }
-    }
-}
+// export const paginationInitialValues = (): {meta: PaginationMeta} => {
+//     return {
+//         meta: {
+//             currentPage: 1,
+//             from: 1,
+//             lastPage: 1,
+//             perPage: 5,
+//             total: 0
+//         }
+//     }
+// }
 
 
-export const setPaginationAction = (paginationObject: PaginationMetaObject) => {
-    return {
-        from: paginationObject.from,
-        currentPage: paginationObject.current_page,
-        lastPage: paginationObject.last_page,
-        perPage: paginationObject?.per_page || getPerPage(),
-        total: paginationObject.total
-    }
-}
+// export const setPaginationAction = (paginationObject: PaginationMetaObject) => {
+//     return {
+//         from: paginationObject.from,
+//         currentPage: paginationObject.current_page,
+//         lastPage: paginationObject.last_page,
+//         perPage: paginationObject?.per_page || getPerPage(),
+//         total: paginationObject.total
+//     }
+// }
 
 function createDefaultCrudInitialState<T, A>(showData: T, allData: A[]): DefaultCrudInitialState<T, A> {
     return {
         all: {
             data: allData,
             loading: false,
-            ...paginationInitialValues()
+            // ...paginationInitialValues()
         },
         show: {
             data: showData,

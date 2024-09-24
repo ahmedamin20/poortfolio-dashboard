@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Router  from './router/Router';
 import Loader from './common/Loader';
+import { Toaster } from 'react-hot-toast';
 
 
 function App() {
@@ -19,7 +20,10 @@ function App() {
   return loading ? (
     <Loader />
   ) : (
-    <Router/>
+    <>
+    <Toaster position='top-center'/>
+      <Router/>
+    </>
   );
 }
 

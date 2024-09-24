@@ -24,11 +24,11 @@ const LoginContainer = () => {
     onSubmit: (values) => handleLogin(values),
   });
 
-  useEffect(() => {
-    if (code === HttpResponse.OK) {
-      navigate(DEFAULT_ROUTE, { replace: true });
-    }
-  }, [code]);
+  // useEffect(() => {
+  //   if (code === HttpResponse.OK) {
+  //     navigate(DEFAULT_ROUTE, { replace: true });
+  //   }
+  // }, [code]);
 
   return (
     <LoginView

@@ -23,7 +23,7 @@ axiosInstance.interceptors.response.use(
     if (error.code == 'ERR_CANCELED') {
       return Promise.reject(error)
     }
-    const data = error.response.data,
+    const data = error,
       errorCode = data.code,
       message = data.message;
 
