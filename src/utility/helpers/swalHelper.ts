@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2'
-import '@styles/base/plugins/extensions/ext-component-sweet-alerts.scss'
+// import '@styles/base/plugins/extensions/ext-component-sweet-alerts.scss'
 import withReactContent from 'sweetalert2-react-content'
 const MySwal = withReactContent(Swal)
 

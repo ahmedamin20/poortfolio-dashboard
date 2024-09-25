@@ -15,6 +15,7 @@ import Buttons from '../../pages/UiElements/Buttons';
 import DefaultLayout from '../../layout/DefaultLayout';
 import PageTitle from '../../components/PageTitle';
 import LoginContainer from '../../modules/auth/containers/LoginContainer';
+import skill from '../../modules/skills/routes';
 export const DefaultRoute="/"
 
 // Assuming lang and userRoute are defined somewhere in your code
@@ -33,6 +34,7 @@ const Routes = [
           </>
         ),
       },
+      ...skill,
       {
         path: 'calendar',
         element: (

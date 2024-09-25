@@ -1,5 +1,5 @@
 import {useEffect} from "react";
-import toastFactory from "../factories/toastFactory";
+import toastFactory from "../factories/toastFactory.ts";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store.ts";
 

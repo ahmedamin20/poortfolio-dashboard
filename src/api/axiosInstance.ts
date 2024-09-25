@@ -3,11 +3,13 @@ import { resetLogin } from "../modules/auth/utils/authHelper";
 import { BASE_URL, HttpResponse } from "../constants/api";
 import { LOGIN_ROUTE } from "../modules/auth/constants/routes";
 import toastFactory from "../utility/factories/toastFactory";
+import authStorageKeys from "../modules/auth/constants/authStorageKeys";
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
-    Accept: 'application/json'
+    Accept: 'application/json',
+    Authorization: `Bearer ${localStorage.getItem(authStorageKeys.TOKEN)}`
   }
 })
 

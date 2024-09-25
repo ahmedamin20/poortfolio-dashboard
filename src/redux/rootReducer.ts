@@ -1,8 +1,10 @@
 
 import { combineReducers } from "@reduxjs/toolkit";
-import  resetLoginReducer  from "../modules/auth/redux/loginReducer";
+import  loginReducer  from "../modules/auth/redux/loginReducer";
+import  skillsReducer  from "../modules/skills/redux/index";
 
 
 export default combineReducers({
-    loginReducer: resetLoginReducer
+    loginReducer,
+    skillsReducer
 })

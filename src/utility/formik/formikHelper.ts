@@ -1,8 +1,8 @@
 import { FormikProps, useFormik } from "formik";
-import FormikConfig from "./formikConfig";
-import { HttpResponse } from "../../constants/api";
-import toastFactory from "../factories/toastFactory";
-import { isObjEmpty } from "../Utils";
+import FormikConfig from "./formikConfig.ts";
+import { HttpResponse } from "../../constants/api.ts";
+import toastFactory from "../factories/toastFactory.ts";
+import { isObjEmpty } from "../Utils.ts";
 import {BuiltFormikParams} from "../../types/formik.ts";
 
 // Define the shape of the props passed to FormikConfig
