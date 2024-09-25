@@ -20,6 +20,7 @@ export const skillSlice = createSlice({
         },
         setOneSkillLoadingAction: (state, action: PayloadAction<boolean>) => {
             state.show.loading = action.payload;
+            console.log(action.payload)
         }
     }
 })

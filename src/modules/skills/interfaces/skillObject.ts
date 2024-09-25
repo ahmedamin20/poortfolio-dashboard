@@ -1,5 +1,5 @@
 export default interface SkillObject {
-    _id: number;
+    _id: string;
     image: string;
     name: string
 }

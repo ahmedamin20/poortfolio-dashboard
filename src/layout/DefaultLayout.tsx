@@ -1,8 +1,10 @@
-import React, { useState, ReactNode } from 'react';
+import React, { useState, Suspense } from 'react';
 import Header from '../components/Header/index';
 import Sidebar from '../components/Sidebar/index';
+import { Outlet } from 'react-router-dom';
+import Loader from '../common/Loader';
 
-const DefaultLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
+const DefaultLayout: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -21,9 +23,12 @@ const DefaultLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
 
           {/* <!-- ===== Main Content Start ===== --> */}
           <main>
+            <Suspense fallback={<Loader />}>
+
             <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-              {children}
+              <Outlet/>
             </div>
+            </Suspense>
           </main>
           {/* <!-- ===== Main Content End ===== --> */}
         </div>

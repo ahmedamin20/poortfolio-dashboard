@@ -26,9 +26,9 @@ axiosInstance.interceptors.response.use(
       return Promise.reject(error)
     }
     const data = error,
-      errorCode = data.code,
+      errorCode = data.status,
       message = data.message;
-
+    console.log(data)
     toastFactory.dismiss()
 
     if (errorCode === HttpResponse.UN_AUTHENTICATED) {

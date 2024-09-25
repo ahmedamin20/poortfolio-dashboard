@@ -1,6 +1,6 @@
 
 import { MdEdit } from "react-icons/md";
-import LinkDropDownItem from "../LinkItem";
+import LinkItem from "../LinkItem";
 
 interface EditDropDownItemProps {
     href?: string;
@@ -9,9 +9,9 @@ interface EditDropDownItemProps {
 }
 
 const EditItem = ({href, onClick = () => {}, ...props}: EditDropDownItemProps) => {
-    return <LinkDropDownItem href={href} onClick={onClick} {...props}>
+    return <LinkItem href={href} onClick={onClick} className="bg-meta-5 text-white hover:border-meta-5 hover:bg-white hover:text-meta-5 transition-all duration-[0.5s]" {...props}>
         <MdEdit className='font-medium-2' />
-    </LinkDropDownItem>
+    </LinkItem>
 }
 
 export default EditItem;

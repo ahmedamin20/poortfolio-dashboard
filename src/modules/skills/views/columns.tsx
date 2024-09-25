@@ -8,7 +8,7 @@ import Avatar from "../../../components/Avatar.tsx";
 const generateActions = (row: SkillTableObject, props) => {
     const {handleDelete, routeParser} = props;
     const actions = [
-        <EditItem tag='a' href={routeParser(row)} key={0}/>,
+        <EditItem href={routeParser(row)} key={0}/>,
         <DeleteItem handleDelete={() => handleDelete(row._id)} key={1}/>
     ]
 
@@ -20,24 +20,24 @@ const getColumns = (props): TableColumn<SkillTableObject>[] => {
         {
             sortable: true,
             name: 'ID',
-            minWidth: '250px',
+            // minWidth: '250px',
             selector: row => row._id
         },
         {
             sortable: true,
             name: 'Name',
-            minWidth: '250px',
+            // minWidth: '250px',
             selector: row => row.name
         },
         {
             sortable: true,
-            name: 'Name',
-            minWidth: '250px',
+            name: 'Image',
+            // minWidth: '250px',
             cell: row => <Avatar src={row.image}/>
         },
         {
             name: 'Actions',
-            minWidth: '100px',
+            // minWidth: '100px',
             cell: row => generateActions(row, props)
         }
     ];

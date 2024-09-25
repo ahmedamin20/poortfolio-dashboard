@@ -1,4 +1,3 @@
-import { Outlet } from 'react-router-dom';
 import SignIn from '../../pages/Authentication/SignIn';
 import SignUp from '../../pages/Authentication/SignUp';
 import Calendar from '../../pages/Calendar';
@@ -23,7 +22,7 @@ export const DefaultRoute="/"
 const Routes = [
   {
     path: '/',
-    element: <DefaultLayout><Outlet/></DefaultLayout>, // Use DefaultLayout as a parent route
+    element: <DefaultLayout/>, // Use DefaultLayout as a parent route
     children: [
       {
         index: true,

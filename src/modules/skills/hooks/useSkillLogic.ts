@@ -31,7 +31,7 @@ const useSkillLogic = () => {
     const getOneSkillLogic: BaseShowOneLogic = (id) => {
         dispatch(setOneSkillLoadingAction(true))
 
-        axiosInstance.get(`//api/skills/${id}`).then((response) => {
+        axiosInstance.get(`/api/skills/${id}`).then((response) => {
             dispatch(setOneSkillAction(response.data.data));
         }).finally(() => dispatch(setOneSkillLoadingAction(false)))
     }
@@ -41,7 +41,7 @@ const useSkillLogic = () => {
 
         setSubmitting(true)
 
-        axiosInstance.post('//api/skills', values)
+        axiosInstance.post('/api/skills', values)
             .then(() => navigate(SkillRoutes.TABLE))
             .catch((error) => formikErrorHandler(error.response.data, formikObject))
             .finally(() => setSubmitting(false))
@@ -52,14 +52,14 @@ const useSkillLogic = () => {
 
         setSubmitting(true)
 
-        axiosInstance.put(`//api/skills/${id}`, values)
+        axiosInstance.put(`/api/skills/${id}`, values)
             .then(() => navigate(SkillRoutes.TABLE))
             .catch((error) => formikErrorHandler(error.response.data, formikObject))
             .finally(() => setSubmitting(false))
     }
 
     const deleteSkillLogic = (id: string|number) => {
-        axiosInstance.delete(`//api/skills/${id}`).then(() => getAllSkillsLogic())
+        axiosInstance.delete(`/api/skills/${id}`).then(() => getAllSkillsLogic())
     }
     
     return {

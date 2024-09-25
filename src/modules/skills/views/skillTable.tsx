@@ -9,8 +9,8 @@ import AddButton from "../../../components/Table/AddButton.tsx";
 const SkillTable =  ({ data, handleDelete, loading }) => {
     const buttons = [<AddButton to={skillRoutes.ADD} key={0}/>]
     const routeParser = (row: SkillTableObject) => {
-        const {id} = row;
-        return parseRoute(skillRoutes.EDIT, {id})
+        const {_id} = row;
+        return parseRoute(skillRoutes.EDIT, {_id})
     };
 
     toastLoader(loading)

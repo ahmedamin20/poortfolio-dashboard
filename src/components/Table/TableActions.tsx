@@ -1,5 +1,5 @@
 const TableActions = ({actions}: {actions: JSX.Element[]}) => {
-    return <div className='d-flex align-items-center permissions-actions'>
+    return <div className='flex items-center justify-evenly'>
           {actions}
         </div>
 }

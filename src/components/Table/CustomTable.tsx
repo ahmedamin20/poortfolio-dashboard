@@ -20,7 +20,7 @@ const CustomTable = <T,>({ buttons = [], title = '', columns, data }: CustomTabl
         <DataTable
           columns={columns}
           data={data} // Your data goes here
-          pagination
+          // pagination
         />
       </div>
     </div>
