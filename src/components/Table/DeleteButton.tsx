@@ -7,6 +7,10 @@ const DeleteItem = ({ handleDelete = () => {} }) => {
   const handleDeleteClick = () => {
     setShowAlert(true);
   };
+  const handleConfirm = () => {
+    handleDelete();
+    setShowAlert(false);
+  };
   return (
     <>
       <button
@@ -19,7 +23,7 @@ const DeleteItem = ({ handleDelete = () => {} }) => {
       {showAlert && (
         <CustomAlert
           message="Are you sure you want to delete this item?"
-          onConfirm={handleDelete}
+          onConfirm={handleConfirm}
           onCancel={() => setShowAlert(false)}
         />
       )}
