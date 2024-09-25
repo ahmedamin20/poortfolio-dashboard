@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Router  from './router/Router';
 import Loader from './common/Loader';
 import { Toaster } from 'react-hot-toast';
+import { DEFAULT_ROUTE } from './constants/routes';
+import { LOGIN_ROUTE } from './modules/auth/constants/routes';
+import { isUserLoggedIn } from './modules/auth/utils/authHelper';
 
 
 function App() {
@@ -16,7 +19,12 @@ function App() {
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
   }, []);
-
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!isUserLoggedIn()) {
+      navigate(LOGIN_ROUTE)
+    }
+  }, [navigate]);
   return loading ? (
     <Loader />
   ) : (

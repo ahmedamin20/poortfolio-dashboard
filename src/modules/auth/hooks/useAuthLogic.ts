@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import axiosInstance from "../../../api/axiosInstance";
 import {HttpResponse} from "../../../constants/api";
-import {resetLogin, setUserData} from "../utils/authHelper";
+import {resetLogin, setToken, setUserData} from "../utils/authHelper";
 import {LOGIN_ROUTE} from "../constants/routes";
 import {useNavigate} from "react-router-dom";
 import {RootState} from "../../../redux/store.ts";
@@ -11,6 +11,7 @@ import {
     setUserInfoLoadingReducer,
     setUserInfoReducer
 } from "../redux/loginReducer";
+import { DEFAULT_ROUTE } from "../../../constants/routes.ts";
 
 export const useAuthLogic = () => {
     const dispatch = useDispatch()
@@ -18,11 +19,11 @@ export const useAuthLogic = () => {
     const navigate = useNavigate()
 
     const userInfoHandler = (result, shouldSetToken = true) => {
-        if (result.data.code === HttpResponse.OK) {
-            setUserData(result.data.data)
+        if (result.status === HttpResponse.OK) {
 
             if (shouldSetToken) {
-                // setToken(result.data.data.token)
+                setToken(result.data.token)
+                navigate(DEFAULT_ROUTE, {replace: true})
             }
 
             //TODO redux stuff
@@ -32,15 +33,14 @@ export const useAuthLogic = () => {
         dispatch(setUserInfoCodeReducer(result.data.code))
     }
 
-    const dispatchLogin = async (payload) => {
-        console.log("logging")
+    const dispatchLogin = (payload) => {
         dispatch(setUserInfoLoadingReducer(true))
 
-        return await axiosInstance.post("/api/auth/login", payload)
-                    .then((result) => console.log(result, "hereee"))
+        return axiosInstance.post("/api/auth/login", payload)
+                    .then((result) => userInfoHandler(result))
                     .finally(() => {
                         dispatch(setUserInfoLoadingReducer(false))
-                    })
+                    }).then(()=>navigate(DEFAULT_ROUTE))
             
     }
 
@@ -52,7 +52,7 @@ export const useAuthLogic = () => {
 
     const dispatchLogout = () => {
         axiosInstance
-            .post('/auth/logout')
+            .post('/api/auth/logout')
             .then(() => {
                 resetLogin()
                 dispatch(resetLoginReducer())
