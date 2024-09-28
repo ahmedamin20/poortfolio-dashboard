@@ -15,6 +15,7 @@ import DefaultLayout from '../../layout/DefaultLayout';
 import PageTitle from '../../components/PageTitle';
 import LoginContainer from '../../modules/auth/containers/LoginContainer';
 import skill from '../../modules/skills/routes';
+import project from '../../modules/projects/routes';
 export const DefaultRoute="/"
 
 // Assuming lang and userRoute are defined somewhere in your code
@@ -34,6 +35,7 @@ const Routes = [
         ),
       },
       ...skill,
+      ...project,
       {
         path: 'calendar',
         element: (
