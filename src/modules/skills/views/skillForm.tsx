@@ -14,9 +14,7 @@ const SkillForm = ({ inUpdate, formikObject, loading, formRef }) => {
     isSubmitting,
     setFieldValue,
   } = formikObject;
-  console.log(isSubmitting);
   toastLoader(loading);
-  console.log(values, 'values');
   return (
     <>
       <Breadcrumb pageName={inUpdate ? `Edit Skill` : `Add Skill`} />

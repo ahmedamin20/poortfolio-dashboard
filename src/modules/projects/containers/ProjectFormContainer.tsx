@@ -17,19 +17,25 @@ export const emptyProject: StoreProject = {
 
 const ProjectFormContainer = () => {
     const {getOneProjectLogic, oneProject, oneLoading, updateProjectLogic, storeProjectLogic} = useProjectLogic();
-    const {id: id} = useParams();
+    const {_id: id} = useParams();
     const inUpdate = id !== undefined;
     const formRef = useRef()
     const formik = formikInstance({
         initialValues: !inUpdate ? emptyProject : {
             id: oneProject._id,
+            name: oneProject.name,
+            description: oneProject.description,
+            source_code_link: oneProject.source_code_link,
+            image: oneProject.image,
+            tags: oneProject.tags
         },
         validationSchema: projectSchema,
         onSubmit: (values: StoreProject|UpdateProject) => {
+            const formData = new FormData(formRef.current)
             if (inUpdate) {
-                updateProjectLogic(values, id, buildFormikParams(formik))
+                updateProjectLogic(formData, id, buildFormikParams(formik))
             } else {
-                storeProjectLogic(values, buildFormikParams(formik))
+                storeProjectLogic(formData, buildFormikParams(formik))
             }
         }});
 

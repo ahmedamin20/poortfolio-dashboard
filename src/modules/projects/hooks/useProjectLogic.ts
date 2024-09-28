@@ -43,7 +43,7 @@ const useProjectLogic = () => {
 
         axiosInstance.post('/api/projects', values)
             .then(() => navigate(ProjectRoutes.TABLE))
-            .catch((error) => formikErrorHandler(error.response.data, formikObject))
+            // .catch((error) => formikErrorHandler(error.response.data, formikObject))
             .finally(() => setSubmitting(false))
     }
 
@@ -54,7 +54,7 @@ const useProjectLogic = () => {
 
         axiosInstance.put(`/api/projects/${id}`, values)
             .then(() => navigate(ProjectRoutes.TABLE))
-            .catch((error) => formikErrorHandler(error.response.data, formikObject))
+            // .catch((error) => formikErrorHandler(error.response.data, formikObject))
             .finally(() => setSubmitting(false))
     }
 

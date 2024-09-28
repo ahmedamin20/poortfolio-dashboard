@@ -1,7 +1,7 @@
 const projectRoutes = {
     TABLE: '/projects',
     ADD: '/projects/create',
-    EDIT: '/projects/:id/edit'
+    EDIT: '/projects/:_id/edit'
 }
 
 export default projectRoutes;

@@ -1,7 +1,10 @@
-import generateSchema from "../../../utility/helpers/validationRuleHelper";
+import generateSchema, { stringRules } from "../../../utility/helpers/validationRuleHelper";
 
 const projectSchema = generateSchema({
-    // Validation goes here !
+    name: stringRules(),
+    description: stringRules(),
+    source_code_link: stringRules(),
+    
 });
 
 export default projectSchema

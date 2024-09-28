@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import SignIn from "../../../pages/Authentication/SignIn";
 import Breadcrumb from "../../../components/Breadcrumbs/Breadcrumb";
 import LogoDark from '../../../images/logo/logo-dark.svg';
 import Logo from '../../../images/logo/logo.svg';
