@@ -15,6 +15,7 @@ const DeleteItem = ({ handleDelete = () => {} }) => {
     <>
       <button
         onClick={handleDeleteClick}
+        type="button"
         color="transparent"
         className="p-2 rounded-lg text-center mx-2 border bg-meta-1 text-white hover:border-meta-1 hover:bg-white hover:text-meta-1 transition-all duration-[0.5s]"
       >

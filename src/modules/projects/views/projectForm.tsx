@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import Breadcrumb from '../../../components/Breadcrumbs/Breadcrumb';
 import CustomFIleInput from '../../../components/CustomFIleInput';
 import CustomInput from '../../../components/CustomInput';
@@ -7,12 +6,7 @@ import CustomTextArea from '../../../components/CustomTextArea';
 import { toastLoader } from '../../../utility/helpers/toastHelper';
 import CustomTable from '../../../components/Table/CustomTable';
 import getTagsColumns from './tagsColumns';
-
-interface tag {
-  _id: string;
-  name: string;
-  color: string;
-}
+import useProjectForm from '../hooks/usePorjectForm';
 
 const ProjectForm = ({ inUpdate, formikObject, loading, formRef }) => {
   const {
@@ -27,25 +21,8 @@ const ProjectForm = ({ inUpdate, formikObject, loading, formRef }) => {
 
   toastLoader(loading);
 
-  useEffect(() => {
-    if (inUpdate) {
-      // Ensure tags is always an array in formik's values
-      setFieldValue('tags', values?.tags || []);
-    }
-  }, [inUpdate]);
-
-  const handleIncrementTagsCount = () => {
-    setFieldValue('tags', [
-      ...values.tags,
-      { _id: '', name: '', color: '' }, // Add a default empty tag
-    ]);
-  };
-
-  const handleDelete = (id: string) => {
-    const newTags = values.tags.filter((tag) => tag._id !== id);
-    setFieldValue('tags', newTags);
-  };
-
+  const { handleIncrementTagsCount, handleDelete, handleTagChange } =
+    useProjectForm(inUpdate, formikObject);
   return (
     !loading && (
       <>
@@ -96,7 +73,7 @@ const ProjectForm = ({ inUpdate, formikObject, loading, formRef }) => {
                   />
 
                   {/* Generate tag input containers based on the length of formik's values.tags */}
-                  {values.tags.map((tag, index) => (
+                  {values?.tags?.map((tag, index) => (
                     <div key={index} className="flex items-center gap-4 mb-4">
                       <CustomInput
                         name={`tags[${index}].name`}
@@ -107,11 +84,9 @@ const ProjectForm = ({ inUpdate, formikObject, loading, formRef }) => {
                         required
                         invalid={!!errors?.tags?.[index]?.name}
                         type="text"
-                        onChange={(e) => {
-                          const updatedTags = [...values.tags];
-                          updatedTags[index].name = e.target.value;
-                          setFieldValue('tags', updatedTags);
-                        }}
+                        onChange={(e) =>
+                          handleTagChange(index, 'name', e.target.value)
+                        }
                         value={tag.name}
                       />
                       <CustomInput
@@ -123,18 +98,16 @@ const ProjectForm = ({ inUpdate, formikObject, loading, formRef }) => {
                         label={`Tag Color ${index + 1}`}
                         placeholder="Enter Tag Color"
                         type="color"
-                        onChange={(e) => {
-                          const updatedTags = [...values.tags];
-                          updatedTags[index].color = e.target.value;
-                          setFieldValue('tags', updatedTags);
-                        }}
+                        onChange={(e) =>
+                          handleTagChange(index, 'color', e.target.value)
+                        }
                         value={tag.color}
                       />
                     </div>
                   ))}
 
                   <CustomTable
-                    columns={getTagsColumns(handleDelete)}
+                    columns={getTagsColumns({ handleDelete })}
                     data={values.tags}
                     title="Tags"
                     buttons={[
@@ -148,15 +121,6 @@ const ProjectForm = ({ inUpdate, formikObject, loading, formRef }) => {
                       </button>,
                     ]}
                   />
-
-                  {/* Button to add more tags */}
-                  <button
-                    type="button"
-                    onClick={handleIncrementTagsCount}
-                    className="text-blue-500 hover:underline"
-                  >
-                    Add Another Tag
-                  </button>
 
                   <CustomSubmitButton disabled={isSubmitting} />
                 </div>

@@ -25,12 +25,14 @@ const CustomAlert = ({ message, onConfirm, onCancel }) => {
         <div className="flex gap-4 mt-4">
           <button
             onClick={onConfirm}
+            type="button"
             className="px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-600"
           >
             Yes
           </button>
           <button
             onClick={onCancel}
+            type="button"
             className="px-4 py-2 text-white border bg-gray-500 rounded-md hover:bg-gray-600"
           >
             No
