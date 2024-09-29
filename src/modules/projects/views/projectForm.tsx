@@ -24,37 +24,28 @@ const ProjectForm = ({ inUpdate, formikObject, loading, formRef }) => {
     handleChange,
     isSubmitting,
   } = formikObject;
-  console.log(values);
-  const [tagsCount, setTagsCount] = useState<number>(1);
+
   toastLoader(loading);
-  const [tags, setTags] = useState<tag[]>([
-    {
-      _id: '',
-      name: '',
-      color: '',
-    },
-  ]);
+
   useEffect(() => {
     if (inUpdate) {
-      setTags(values?.tags || []); // Ensure tags is always an array
-      setTagsCount(values?.tags?.length || 1); // Ensure tagsCount is at least 1
+      // Ensure tags is always an array in formik's values
+      setFieldValue('tags', values?.tags || []);
     }
-  }, [inUpdate]); // Add `inUpdate` as a dependency
+  }, [inUpdate]);
 
   const handleIncrementTagsCount = () => {
-    setTagsCount(tagsCount + 1);
+    setFieldValue('tags', [
+      ...values.tags,
+      { _id: '', name: '', color: '' }, // Add a default empty tag
+    ]);
   };
 
-  const handlePushTags = (values: tag) => {
-    setTags([...tags, values]);
-  };
-  console.log(isSubmitting, 'is Submitting');
-  const buttons = [<button onClick={()=>handlePushTags} key={0}>add</button>]
- 
   const handleDelete = (id: string) => {
-    const newTags = tags.filter((tag) => tag._id !== id);
-    setTags(newTags);
+    const newTags = values.tags.filter((tag) => tag._id !== id);
+    setFieldValue('tags', newTags);
   };
+
   return (
     !loading && (
       <>
@@ -104,24 +95,27 @@ const ProjectForm = ({ inUpdate, formikObject, loading, formRef }) => {
                     value={values.image}
                   />
 
-                  {/* Generate tag input containers based on tagsCount */}
-                  {/* Generate tag input containers based on tagsCount */}
-                  {Array.from({ length: tagsCount }).map((_, index) => (
+                  {/* Generate tag input containers based on the length of formik's values.tags */}
+                  {values.tags.map((tag, index) => (
                     <div key={index} className="flex items-center gap-4 mb-4">
                       <CustomInput
                         name={`tags[${index}].name`}
                         label={`Tag Name ${index + 1}`}
                         placeholder="Enter Tag Name"
-                        error={errors?.tags?.[index]?.name} // Check if errors.tags and errors.tags[index] exist
+                        error={errors?.tags?.[index]?.name}
                         onBlur={handleBlur}
                         required
                         invalid={!!errors?.tags?.[index]?.name}
                         type="text"
-                        onChange={handleChange}
-                        value={values?.tags?.[index]?.name || ''} // Safely access values.tags[index]
+                        onChange={(e) => {
+                          const updatedTags = [...values.tags];
+                          updatedTags[index].name = e.target.value;
+                          setFieldValue('tags', updatedTags);
+                        }}
+                        value={tag.name}
                       />
                       <CustomInput
-                        error={errors?.tags?.[index]?.color} // Check if errors.tags and errors.tags[index] exist
+                        error={errors?.tags?.[index]?.color}
                         onBlur={handleBlur}
                         invalid={!!errors?.tags?.[index]?.color}
                         required
@@ -129,17 +123,32 @@ const ProjectForm = ({ inUpdate, formikObject, loading, formRef }) => {
                         label={`Tag Color ${index + 1}`}
                         placeholder="Enter Tag Color"
                         type="color"
-                        onChange={handleChange}
-                        value={values?.tags?.[index]?.color || ''} // Safely access values.tags[index]
+                        onChange={(e) => {
+                          const updatedTags = [...values.tags];
+                          updatedTags[index].color = e.target.value;
+                          setFieldValue('tags', updatedTags);
+                        }}
+                        value={tag.color}
                       />
                     </div>
                   ))}
-                    <CustomTable
-                      columns={getTagsColumns(handleDelete)}
-                      data={tags}
-                      title='Tags'
-                      buttons={buttons}
-                    />
+
+                  <CustomTable
+                    columns={getTagsColumns(handleDelete)}
+                    data={values.tags}
+                    title="Tags"
+                    buttons={[
+                      <button
+                        type="button"
+                        onClick={handleIncrementTagsCount}
+                        key={0}
+                        className="bg-red-500 p-2 text-white"
+                      >
+                        Add Tag
+                      </button>,
+                    ]}
+                  />
+
                   {/* Button to add more tags */}
                   <button
                     type="button"
