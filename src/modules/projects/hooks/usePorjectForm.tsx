@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 const useProjectForm = (inUpdate, formikObject) => {
   const { values, setFieldValue } = formikObject;
 
-  // Ensure tags is always an array in formik's values when in update mode
   useEffect(() => {
     if (inUpdate) {
       setFieldValue('tags', values?.tags || []);

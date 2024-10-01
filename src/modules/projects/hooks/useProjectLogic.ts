@@ -1,13 +1,13 @@
-import {useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {setAllProjectsLoadingAction, setOneProjectAction, setOneProjectLoadingAction} from "../redux";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setAllProjectsLoadingAction, setOneProjectAction, setOneProjectLoadingAction } from "../redux";
 import axiosInstance from "../../../api/axiosInstance";
 import ProjectRoutes from "../constants/routes";
-import {formikErrorHandler} from "../../../utility/formik/formikHelper";
-import {getUniqueParams} from "../../../utility/helpers/routeHelper";
-import {RootState} from "../../../redux/store.ts";
-import {BaseGetAllLogic, BaseShowOneLogic, BaseStoreLogic, BaseUpdateLogic} from "../../../types/api.ts";
-import {setAllProjectsAction} from "../redux";
+import { formikErrorHandler } from "../../../utility/formik/formikHelper";
+import { getUniqueParams } from "../../../utility/helpers/routeHelper";
+import { RootState } from "../../../redux/store.ts";
+import { BaseGetAllLogic, BaseShowOneLogic, BaseStoreLogic, BaseUpdateLogic } from "../../../types/api.ts";
+import { setAllProjectsAction } from "../redux";
 
 const useProjectLogic = () => {
     const dispatch = useDispatch()
@@ -23,7 +23,7 @@ const useProjectLogic = () => {
         params = params === undefined ? getUniqueParams() : params;
         dispatch(setAllProjectsLoadingAction(true))
 
-        axiosInstance.get('/api/projects', {params}).then((response) => {
+        axiosInstance.get('/api/projects', { params }).then((response) => {
             dispatch(setAllProjectsAction(response.data.data))
         }).finally(() => dispatch(setAllProjectsLoadingAction(false)))
     }
@@ -37,7 +37,7 @@ const useProjectLogic = () => {
     }
 
     const storeProjectLogic: BaseStoreLogic = (values, formikObject) => {
-        const {setSubmitting} = formikObject;
+        const { setSubmitting } = formikObject;
 
         setSubmitting(true)
 
@@ -48,7 +48,7 @@ const useProjectLogic = () => {
     }
 
     const updateProjectLogic: BaseUpdateLogic = (values, id, formikObject) => {
-        const {setSubmitting} = formikObject;
+        const { setSubmitting } = formikObject;
 
         setSubmitting(true)
 
@@ -58,10 +58,10 @@ const useProjectLogic = () => {
             .finally(() => setSubmitting(false))
     }
 
-    const deleteProjectLogic = (id: string|number) => {
+    const deleteProjectLogic = (id: string | number) => {
         axiosInstance.delete(`/api/projects/${id}`).then(() => getAllProjectsLogic())
     }
-    
+
     return {
         all,
         oneProject,

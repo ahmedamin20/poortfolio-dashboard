@@ -16,14 +16,16 @@ import PageTitle from '../../components/PageTitle';
 import LoginContainer from '../../modules/auth/containers/LoginContainer';
 import skill from '../../modules/skills/routes';
 import project from '../../modules/projects/routes';
-export const DefaultRoute="/"
+import AuthCallback from '../../modules/auth/views/AuthCallback';
+import experience from '../../modules/experience/routes';
+export const DefaultRoute = '/';
 
 // Assuming lang and userRoute are defined somewhere in your code
 
 const Routes = [
   {
     path: '/',
-    element: <DefaultLayout/>, // Use DefaultLayout as a parent route
+    element: <DefaultLayout />, // Use DefaultLayout as a parent route
     children: [
       {
         index: true,
@@ -36,6 +38,11 @@ const Routes = [
       },
       ...skill,
       ...project,
+      ...experience,
+      {
+        path: '/auth/callback',
+        Element: <AuthCallback />,
+      },
       {
         path: 'calendar',
         element: (
@@ -139,14 +146,12 @@ const Routes = [
   },
   {
     path: '/login',
-    element: <LoginContainer/>,
+    element: <LoginContainer />,
   },
   {
     path: '*',
     element: <div>Not Found</div>,
   },
 ];
-
-
 
 export default Routes;

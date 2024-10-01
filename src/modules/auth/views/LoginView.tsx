@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
-import Breadcrumb from "../../../components/Breadcrumbs/Breadcrumb";
+import { Link, useNavigate } from 'react-router-dom';
+import Breadcrumb from '../../../components/Breadcrumbs/Breadcrumb';
 import LogoDark from '../../../images/logo/logo-dark.svg';
 import Logo from '../../../images/logo/logo.svg';
+import axiosInstance from '../../../api/axiosInstance';
+import authStorageKeys from '../constants/authStorageKeys';
 const LoginView = ({
   handleSubmit,
   handleChange,
@@ -9,7 +11,11 @@ const LoginView = ({
   formikErrors,
   isSubmitting = false,
 }) => {
-  return(
+  const handleGoogleAuth = () => {
+    window.location.href = 'http://localhost:3001/api/auth/google';
+  };
+
+  return (
     <>
       <Breadcrumb pageName="Sign In" />
 
@@ -239,10 +245,15 @@ const LoginView = ({
                     onClick={handleSubmit}
                     disabled={isSubmitting}
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
-                  >Submit</button>
+                  >
+                    Submit
+                  </button>
                 </div>
 
-                <button className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-stroke bg-gray p-4 hover:bg-opacity-50 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50">
+                <button
+                  onClick={handleGoogleAuth}
+                  className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-stroke bg-gray p-4 hover:bg-opacity-50 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50"
+                >
                   <span>
                     <svg
                       width="20"
