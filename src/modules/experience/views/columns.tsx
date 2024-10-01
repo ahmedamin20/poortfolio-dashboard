@@ -39,11 +39,11 @@ const getColumns = (props): TableColumn<ExperienceTableObject>[] => {
       name: 'Company',
       minWidth: '250px',
       cell: (row) => (
-        <div className="felx my-2 flex-col rounded-lg shadow-md gap-y-2 justify-center items-center p-2 px-4">
-          <span className="font-[900] my-2 mb-5">{row.companyName}</span>
+        <div className="felx my-2 flex-col rounded-lg justify-center items-center p-2 px-4">
+          <span className="font-[900]">{row.companyName}</span>
           <img
             src={row.logo}
-            className="w-[50px] h-[50px] rounded-full mx-auto"
+            className="w-[50px] h-[50px] rounded-full mx-auto mt-[10px]"
           />
         </div>
       ),
