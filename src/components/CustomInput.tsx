@@ -14,7 +14,7 @@ const CustomInput = ({
 }) => {
   console.log('CustomInput rendered', invalid);
   return (
-    <div className="w-full">
+    <div className="w-full my-3">
       <label className="mb-2.5 block text-black dark:text-white">{label}</label>
       <input
         type={type}

@@ -47,10 +47,16 @@ const ExperienceFormContainer = () => {
         },
     validationSchema: experienceSchema,
     onSubmit: (values: StoreExperience | UpdateExperience) => {
+      const formData = new FormData(formRef.current);
+      console.log(values, 'values');
+      values.projects.forEach((project, index) => {
+        formData.append(`projects[${index}][projectName]`, project.projectName);
+        formData.append(`projects[${index}][projectUrl]`, project.projectUrl);
+      });
       if (inUpdate) {
-        updateExperienceLogic(values, id, buildFormikParams(formik));
+        updateExperienceLogic(formData, id, buildFormikParams(formik));
       } else {
-        storeExperienceLogic(values, buildFormikParams(formik));
+        storeExperienceLogic(formData, buildFormikParams(formik));
       }
     },
   });

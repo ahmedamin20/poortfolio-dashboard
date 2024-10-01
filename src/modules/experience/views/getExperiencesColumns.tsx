@@ -1,12 +1,13 @@
 import { TableColumn } from 'react-data-table-component';
 import DeleteItem from '../../../components/Table/DeleteButton.tsx';
 import TableActions from '../../../components/Table/TableActions.tsx';
-interface tag {
+interface Project {
+  projectName: string;
+  projectUrl: string;
   _id: string;
-  name: string;
-  color: string;
 }
-const generateActions = (row: tag, props) => {
+
+const generateActions = (row: Project, props) => {
   const { handleDelete } = props;
   const actions = [
     <DeleteItem handleDelete={() => handleDelete(row._id)} key={1} />,
@@ -15,7 +16,7 @@ const generateActions = (row: tag, props) => {
   return <TableActions actions={actions} />;
 };
 
-const getTagsColumns = (props): TableColumn<tag>[] => {
+const getExperiencesColumns = (props): TableColumn<Project>[] => {
   return [
     {
       sortable: true,
@@ -24,20 +25,13 @@ const getTagsColumns = (props): TableColumn<tag>[] => {
     },
     {
       sortable: true,
-      name: 'Name',
-      selector: (row) => row.name,
+      name: 'Project Name',
+      selector: (row) => row.projectName,
     },
     {
       sortable: true,
-      name: 'Color',
-      cell: (row) => (
-        <span
-          style={{ background: row.color }}
-          className="p-2 rounded-lg shadow-md"
-        >
-          {row.color}
-        </span>
-      ),
+      name: 'Project URL',
+      selector: (row) => row.projectUrl,
     },
     {
       name: 'Actions',
@@ -46,4 +40,4 @@ const getTagsColumns = (props): TableColumn<tag>[] => {
   ];
 };
 
-export default getTagsColumns;
+export default getExperiencesColumns;

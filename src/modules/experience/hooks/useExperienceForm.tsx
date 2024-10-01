@@ -1,40 +1,37 @@
 import { useEffect } from 'react';
 
-const useProjectForm = (inUpdate, formikObject) => {
+const useExperincesForm = (inUpdate, formikObject) => {
   const { values, setFieldValue } = formikObject;
 
   useEffect(() => {
     if (inUpdate) {
-      setFieldValue('tags', values?.tags || []);
+      setFieldValue('projects', values?.projects || []);
     }
-  }, [inUpdate, setFieldValue, values?.tags]);
+  }, [inUpdate, setFieldValue, values?.projects]);
 
-  // Handler to add a new tag input field
-  const handleIncrementTagsCount = () => {
-    setFieldValue('tags', [
-      ...values.tags,
-      { _id: '', name: '', color: '' }, // Add a default empty tag
+  const handleIncrementProjectsCount = () => {
+    setFieldValue('projects', [
+      ...values.projects,
+      { _id: '', projectName: '', projectUrl: '' },
     ]);
   };
 
-  // Handler to delete a tag based on its id
   const handleDelete = (id) => {
-    const newTags = values.tags.filter((tag) => tag._id !== id);
-    setFieldValue('tags', newTags);
+    const newProjects = values.prjects.filter((project) => project._id !== id);
+    setFieldValue('projects', newProjects);
   };
 
-  // Handler to update a specific tag's name or color
-  const handleTagChange = (index, key, value) => {
-    const updatedTags = [...values.tags];
-    updatedTags[index][key] = value;
-    setFieldValue('tags', updatedTags);
+  const handleProjectsChange = (index, key, value) => {
+    const updatesProjects = [...values.projects];
+    updatesProjects[index][key] = value;
+    setFieldValue('projects', updatesProjects);
   };
 
   return {
-    handleIncrementTagsCount,
+    handleIncrementProjectsCount,
     handleDelete,
-    handleTagChange,
+    handleProjectsChange,
   };
 };
 
-export default useProjectForm;
+export default useExperincesForm;

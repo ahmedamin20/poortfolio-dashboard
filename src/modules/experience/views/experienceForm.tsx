@@ -5,8 +5,8 @@ import CustomSubmitButton from '../../../components/CustomSubmitButton';
 import CustomTextArea from '../../../components/CustomTextArea';
 import CustomTable from '../../../components/Table/CustomTable';
 import { toastLoader } from '../../../utility/helpers/toastHelper';
-import useProjectForm from '../hooks/useExperienceForm';
-import getTagsColumns from './tagsColumns';
+import useExperincesForm from '../hooks/useExperienceForm';
+import getTagsColumns from './getExperiencesColumns';
 
 const ExperienceForm = ({ inUpdate, formikObject, loading, formRef }) => {
   const {
@@ -20,8 +20,8 @@ const ExperienceForm = ({ inUpdate, formikObject, loading, formRef }) => {
   } = formikObject;
 
   toastLoader(loading);
-  const { handleIncrementTagsCount, handleDelete, handleTagChange } =
-    useProjectForm(inUpdate, formikObject);
+  const { handleIncrementProjectsCount, handleDelete, handleProjectsChange } =
+    useExperincesForm(inUpdate, formikObject);
   return (
     !loading && (
       <>
@@ -37,88 +37,110 @@ const ExperienceForm = ({ inUpdate, formikObject, loading, formRef }) => {
                   <CustomInput
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    value={values.name}
-                    label="Name"
+                    value={values.title}
+                    label="Title"
                     required
-                    name="name"
-                    invalid={errors.name && true}
-                    error={errors.name}
-                    placeholder="Enter Project Name"
-                  />
-                  <CustomTextArea
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.description}
-                    label="Description"
-                    required
-                    name="description"
-                    error={errors.description}
-                    placeholder="Enter Description"
+                    name="title"
+                    invalid={errors.title && true}
+                    error={errors.title}
+                    placeholder="Enter Project title"
                   />
                   <CustomInput
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    value={values.source_code_link}
-                    label="Source Code Link"
+                    value={values.companyName}
+                    label="Company Name"
                     required
-                    name="source_code_link"
-                    invalid={errors.source_code_link && true}
-                    error={errors.source_code_link}
-                    placeholder="Enter Source Code Link"
+                    name="companyName"
+                    error={errors.companyName}
+                    invalid={errors.companyName && true}
+                    placeholder="Enter Company Name"
+                  />
+                  <CustomInput
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.logoBg}
+                    label="Source Logo Background"
+                    required
+                    name="logoBg"
+                    type="color"
+                    invalid={errors.logoBg && true}
+                    error={errors.logoBg}
+                    placeholder="Enter Logo Background"
+                  />
+                  <CustomInput
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.date}
+                    label="Date"
+                    required
+                    name="date"
+                    type="date"
+                    invalid={errors.date && true}
+                    error={errors.date}
+                    placeholder="Enter Date"
                   />
                   <CustomFIleInput
-                    onChange={(e) => setFieldValue('image', e.target.files[0])}
-                    name={'image'}
-                    label="Image"
-                    value={values.image}
+                    onChange={(e) => setFieldValue('logo', e.target.files[0])}
+                    name={'logo'}
+                    label="Company Logo"
+                    value={values.logo}
                   />
 
                   {/* Generate tag input containers based on the length of formik's values.tags */}
-                  {values?.tags?.map((tag, index) => (
+                  {values?.projects?.map((project, index) => (
                     <div key={index} className="flex items-center gap-4 mb-4">
                       <CustomInput
-                        name={`tags[${index}].name`}
-                        label={`Tag Name ${index + 1}`}
-                        placeholder="Enter Tag Name"
-                        error={errors?.tags?.[index]?.name}
+                        name={`projects[${index}].projectName`}
+                        label={`proejcts Name ${index + 1}`}
+                        placeholder="Enter Project Name"
+                        error={errors?.projects?.[index]?.projectName}
                         onBlur={handleBlur}
                         required
-                        invalid={!!errors?.tags?.[index]?.name}
+                        invalid={!!errors?.projects?.[index]?.projectName}
                         type="text"
                         onChange={(e) =>
-                          handleTagChange(index, 'name', e.target.value)
+                          handleProjectsChange(
+                            index,
+                            'projectName',
+                            e.target.value
+                          )
                         }
-                        value={tag.name}
+                        value={project.projectName}
                       />
                       <CustomInput
-                        error={errors?.tags?.[index]?.color}
+                        error={errors?.projects?.[index]?.projectUrl}
                         onBlur={handleBlur}
-                        invalid={!!errors?.tags?.[index]?.color}
+                        invalid={!!errors?.projects?.[index]?.projectUrl}
                         required
-                        name={`tags[${index}].color`}
-                        label={`Tag Color ${index + 1}`}
-                        placeholder="Enter Tag Color"
-                        type="color"
+                        name={`projects[${index}].projectUrl`}
+                        label={`Project URL ${index + 1}`}
+                        placeholder="Enter Project URL"
+                        type="text"
                         onChange={(e) =>
-                          handleTagChange(index, 'color', e.target.value)
+                          handleProjectsChange(
+                            index,
+                            'projectUrl',
+                            e.target.value
+                          )
                         }
-                        value={tag.color}
+                        value={project.projectUrl}
                       />
                     </div>
                   ))}
 
                   <CustomTable
                     columns={getTagsColumns({ handleDelete })}
-                    data={values.tags}
-                    title="Tags"
+                    data={values.projects}
+                    title="Projects"
                     buttons={[
                       <button
                         type="button"
-                        onClick={handleIncrementTagsCount}
+                        onClick={handleIncrementProjectsCount}
                         key={0}
                         className="bg-red-500 p-2 text-white"
                       >
-                        Add Tag
+                        Add Project +
                       </button>,
                     ]}
                   />
