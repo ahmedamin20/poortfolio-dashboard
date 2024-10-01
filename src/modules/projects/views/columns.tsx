@@ -21,27 +21,29 @@ const getColumns = (props): TableColumn<ProjectTableObject>[] => {
     {
       sortable: true,
       name: 'ID',
-      minWidth: '250px',
       selector: (row) => row._id,
     },
     {
       name: 'name',
-      minWidth: '250px',
       selector: (row) => row.name,
     },
     {
       name: 'Image',
-      minWidth: '250px',
       cell: (row) => <Avatar src={row.image} />,
     },
     {
       name: 'Link',
-      minWidth: '250px',
-      cell: (row) => <Link className='bg-primary p-2 flex flex-row gap-x-2 text-whit hover:bg-transparent border border-transparent hover:text-primary hover:border-primary transition-all duration-[0.5s] text-white justify-between flex-nowrap rounded-md shadow-lg' to={row.source_code_link}>Link</Link>,
+      cell: (row) => (
+        <Link
+          className="bg-primary p-2 flex flex-row gap-x-2 text-whit hover:bg-transparent border border-transparent hover:text-primary hover:border-primary transition-all duration-[0.5s] text-white justify-between flex-nowrap rounded-md shadow-lg"
+          to={row.source_code_link}
+        >
+          Link
+        </Link>
+      ),
     },
     {
       name: 'Actions',
-      minWidth: '100px',
       cell: (row) => generateActions(row, props),
     },
   ];

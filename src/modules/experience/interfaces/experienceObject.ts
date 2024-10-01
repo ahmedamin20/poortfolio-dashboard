@@ -7,7 +7,6 @@ export default interface ExperienceObject {
     points: string[];
     projects: Project[];
     title: string;
-    __v: number;
 }
 
 interface Project {

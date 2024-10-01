@@ -19,25 +19,21 @@ const getColumns = (props): TableColumn<ExperienceTableObject>[] => {
     {
       sortable: true,
       name: 'ID',
-      minWidth: '250px',
       selector: (row) => row._id,
     },
     {
       sortable: true,
       name: 'Title',
-      minWidth: '250px',
       selector: (row) => row.title,
     },
     {
       sortable: true,
       name: 'Date',
-      minWidth: '250px',
       selector: (row) => row.date,
     },
     {
       sortable: true,
       name: 'Company',
-      minWidth: '250px',
       cell: (row) => (
         <div className="felx my-2 flex-col rounded-lg justify-center items-center p-2 px-4">
           <span className="font-[900]">{row.companyName}</span>
@@ -50,7 +46,6 @@ const getColumns = (props): TableColumn<ExperienceTableObject>[] => {
     },
     {
       name: 'Actions',
-      minWidth: '100px',
       cell: (row) => generateActions(row, props),
     },
   ];

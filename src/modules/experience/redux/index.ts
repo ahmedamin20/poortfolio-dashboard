@@ -11,7 +11,6 @@ export const experienceSlice = createSlice({
     reducers: {
         setAllExperiencesAction: (state, action: PayloadAction<ExperienceTableObject[]>) => {
             state.all.data = action.payload;
-            console.log(action.payload, 'payloload')
         },
         setAllExperiencesLoadingAction: (state, action: PayloadAction<boolean>) => {
             state.all.loading = action.payload;
